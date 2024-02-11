@@ -68,6 +68,7 @@ export declare interface extController {
     conncom: any;
     retryTimeSP: number;
     on(event: string, listener: Function): this;
+    on(event: 'Connecting', listener: (this: this) => {}): this;
     on(event: 'Connected', listener: (this: this) => {}): this; 
     on(event: 'TagChanged', listener: (tag: Tag, previousValue: any) => {}): this;
     on(event: 'TagInit', listener: (tag: Tag) => {}): this;
@@ -108,6 +109,7 @@ export class extController extends EventEmitter{
         this.reconnect = reconnect;
         this.PLC = new Controller(this.conncom);
         this.PLC.rpi = this.rpi;
+        this.emit("Connecting", this);
         this.PLC.connect(this.ipAddress, this.slot).then(async () => {
             this.connected = true;
             this.PLC.scan_rate = this.rpi;
