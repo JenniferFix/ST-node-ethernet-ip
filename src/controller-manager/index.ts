@@ -110,6 +110,7 @@ export class extController extends EventEmitter{
         this.PLC = new Controller(this.conncom);
         this.PLC.rpi = this.rpi;
         this.emit("Connecting", this);
+        console.log('ST-node-ethernet-ip: Connecting')
         this.PLC.connect(this.ipAddress, this.slot).then(async () => {
             this.connected = true;
             this.PLC.scan_rate = this.rpi;
